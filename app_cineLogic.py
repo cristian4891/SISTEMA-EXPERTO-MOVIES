@@ -82,6 +82,9 @@ html, body, [class*="css"] {
 }
 
 .card-resultado {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
     background: var(--superficie);
     border: 1px solid var(--borde);
     border-left: 4px solid var(--violeta);
@@ -111,6 +114,16 @@ html, body, [class*="css"] {
     line-height: 1.6;
 }
 .card-just strong { color: var(--dorado); font-weight: 500; }
+
+.card-poster {
+    width: 90px;
+    min-width: 90px;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.card-info {
+    flex: 1;
+}
 
 .sin-resultados {
     background: var(--superficie);
@@ -277,11 +290,14 @@ if st.button("🎬 Buscar películas"):
         for i, rec in enumerate(resultados, 1):
             st.markdown(f"""
             <div class="card-resultado">
-                <div class="card-num">Recomendación {i}</div>
-                <div class="card-titulo">{rec['titulo']}</div>
-                <div class="card-just">
-                    <strong>Regla activada:</strong> {rec['regla']}<br>
-                    {rec['justificacion']}
+                {'<img class="card-poster" src="' + rec["poster"] + '" alt="' + rec["titulo"] + '">' if rec.get("poster") else ''}
+                <div class="card-info">
+                    <div class="card-num">Recomendación {i}</div>
+                    <div class="card-titulo">{rec['titulo']}</div>
+                    <div class="card-just">
+                        <strong>Regla activada:</strong> {rec['regla']}<br>
+                        {rec['justificacion']}
+                    </div>
                 </div>
             </div>
             """, unsafe_allow_html=True)
